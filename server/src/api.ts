@@ -19,13 +19,29 @@ router
         let article = req.body.article;
 
         if (typeof word !== 'string')
-            res.status(400).end();
-        else if (article !== 'der' || article !== 'die' || article !== 'das')
-            res.status(400).end();
+            res.status(400).end("This is not a valid word");
+        else if (article !== 'der' && article !== 'die' && article !== 'das')
+            res.status(400).end("This is not a valid article");
         else {
             //@ts-ignore
-            db.get('words').push({ name: word, article: article }).write();
+            if (db.get('words').find({ name: word })) {
+                res.status(400).end("This name already exists");
+            } else {
+                //@ts-ignore
+                db.get('words').push({ name: word, article: article }).write();
+                res.end();
+            }
         }
+    })
+    .delete('/words/:wordName', (req, res) => {
+        let word = req.params.wordName;
+
+        if (typeof word !== 'string') {
+            res.status(400).end('This is not a valid word');
+        }
+        //@ts-ignore
+        db.get('words').remove({ word: word });
+        res.end();
     })
     .get('/words', (req, res) => {
         res.end(JSON.stringify(db.get('words')));

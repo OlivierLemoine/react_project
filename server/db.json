@@ -1,3 +1,8 @@
 {
-  "words": []
+  "words": [
+    {
+      "name": "test",
+      "article": "der"
+    }
+  ]
 }

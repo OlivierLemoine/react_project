@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "description": "",
     "scripts": {
-        "start": "node run.js"
+        "start": "node run.js",
+        "install": "node install.js"
     },
     "keywords": [],
     "author": "",

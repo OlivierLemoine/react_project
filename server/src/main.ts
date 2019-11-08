@@ -1,0 +1,8 @@
+import express from 'express';
+const app = express();
+
+app.get('/', (req, res) => {
+    res.send('hello world');
+})
+
+app.listen(8000, () => console.log('Started on localhost:8000'))

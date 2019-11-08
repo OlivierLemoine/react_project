@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "npx nodemon build/main.js",
+        "start": "npx nodemon build/*.js",
         "build": "npx tsc",
         "watch": "npx tsc --watch"
     },

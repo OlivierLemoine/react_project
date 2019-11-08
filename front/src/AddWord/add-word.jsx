@@ -19,9 +19,17 @@ export default class extends React.Component {
 
         this.handleSubmit = () => {
             console.log(this.state);
-            fetch({ method: 'POST', body: JSON.stringify({ name: this.state.wordName, article: this.state.article.toLocaleLowerCase() }) }).then(res => res.json()).then(val => {
-                console.log(val);
-            }).catch(reason => console.log(reason));
+            fetch({
+                method: 'POST',
+                body: JSON.stringify({
+                    name: this.state.wordName,
+                    article: this.state.article.toLocaleLowerCase(),
+                })
+            })
+                .then(res => res.json()).then(val => {
+                    console.log(val);
+                })
+                .catch(reason => console.log(reason));
         };
     }
 

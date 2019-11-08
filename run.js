@@ -1,17 +1,19 @@
 let cp = require('child_process');
 
-cp.exec('cd front && npm run watch', (err, stdout, stderr) => {
+cp.exec('npm run watch', { cwd: "./front/", }, (err, stdout, stderr) => {
     if (err) {
         throw err;
     }
-}).on('error', err => console.log(err));
-cp.exec('cd server && npm run watch', (err, stdout, stderr) => {
+});
+cp.exec('npm run watch', { cwd: "./server/", }, (err, stdout, stderr) => {
     if (err) {
         throw err;
     }
-}).on('error', err => console.log(err));
-cp.exec('cd server && npm run start', (err, stdout, stderr) => {
+});
+let serv = cp.exec('npm start', { cwd: "./server/", }, (err, stdout, stderr) => {
     if (err) {
         throw err;
     }
-}).on('error', err => console.log(err)).on('message', msg => console.log(msg));
+});
+serv.stdout.on('data', data => console.log(data));
+serv.stderr.on('data', data => console.error(data));

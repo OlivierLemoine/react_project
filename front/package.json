@@ -1,0 +1,25 @@
+{
+    "name": "react_project",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "watch-client": "npx babel --watch src --out-dir build --presets react-app/prod"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/OlivierLemoine/react_project.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/OlivierLemoine/react_project/issues"
+    },
+    "homepage": "https://github.com/OlivierLemoine/react_project#readme",
+    "dependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-preset-react-app": "^3.1.2"
+    }
+}

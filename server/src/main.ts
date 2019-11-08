@@ -4,7 +4,8 @@ import fs from 'fs';
 
 const app = express();
 
-app.use(express.static("../front/build"))
+app
+    .use(express.static("../front/build"))
     .use(express.static("../front/statics"))
     .use('/api', api)
     .get('/', (req, res) => {

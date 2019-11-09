@@ -9,8 +9,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      
-      <Menu/>
+
+      <Burger/>
       </header>
     </div>
   );

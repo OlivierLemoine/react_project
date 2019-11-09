@@ -1,19 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import M from 'materialize-css';
+import './burger.css'
 
 export default class extends React.Component{
   constructor(){
     super();
   }
   render(){
-    return (<div>
+    return (
+<div>
+<br/>
+<a div='Section' href="#">About</a><br/><br/>
+<a div='Section' href="#">Game 1</a><br/>
+<a div='Section' href="#">Game 2</a><br/>
+<a div='Section' href="#">Game 3</a><br/>
 
-            <a className="waves-effect waves-light btn">Homepage</a><br/>
-            <a className="waves-effect waves-light btn">Game A</a><br/>
-            <a className="waves-effect waves-light btn">Game B</a><br/>
-            <a className="waves-effect waves-light btn">Game C</a><br/>
-             </div>
+</div>
 
           );
   }

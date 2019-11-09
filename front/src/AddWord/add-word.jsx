@@ -1,5 +1,7 @@
 import React from 'react';
 
+let M = window.M;
+
 export default class extends React.Component {
     constructor() {
         super()
@@ -7,6 +9,7 @@ export default class extends React.Component {
         this.state = {
             article: "Der",
             wordName: "",
+            modalMsg: "",
         };
 
         this.handleUpdateName = (ev) => {
@@ -31,8 +34,15 @@ export default class extends React.Component {
                 body: JSON.stringify(payload),
                 headers: header,
             })
-                .then(res => res.json()).then(val => {
-                    console.log(val);
+                .then(async res => {
+                    let val = await res.json();
+                    let err = val.message || "The server response was not correctly formated";
+
+                    this.setState({ modalMsg: res.status !== 200 ? err : "Ok" });
+
+                    let modElem = document.querySelector('#modal-res-new-word');
+                    let instance = M.Modal.init(modElem);
+                    instance.open();
                 })
                 .catch(reason => console.log(reason));
         };
@@ -40,28 +50,38 @@ export default class extends React.Component {
 
 
     render() {
-        return <div className="row">
-            <div className="card-panel col m6 offset-m3 s12">
-                <form style={{ margin: "10px" }} className="row" action="#">
-                    <ul className="col s6">
-                        {
-                            ["Der", "Die", "Das"].map(article => (
-                                <li key={article}>
-                                    <label>
-                                        <input name="article" type="radio" onChange={this.generateHandleUpdateArticle(article)}
-                                            checked={article === this.state.article} />
-                                        <span>{article}</span>
-                                    </label>
-                                </li>
-                            ))
-                        }
-                    </ul>
-                    <div className="col s6">
-                        <input type="text" value={this.state.wordName} onChange={this.handleUpdateName} />
-                        <button className="btn" onClick={this.handleSubmit}>Submit</button>
+        return (
+            <div className="row">
+                <div className="card-panel col m6 offset-m3 s12">
+                    <form style={{ margin: "10px" }} className="row" action="#">
+                        <ul className="col s6">
+                            {
+                                ["Der", "Die", "Das"].map(article => (
+                                    <li key={article}>
+                                        <label>
+                                            <input name="article" type="radio" onChange={this.generateHandleUpdateArticle(article)}
+                                                checked={article === this.state.article} />
+                                            <span>{article}</span>
+                                        </label>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                        <div className="col s6">
+                            <input type="text" value={this.state.wordName} onChange={this.handleUpdateName} />
+                            <button className="btn" onClick={this.handleSubmit}>Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div className="modal" id="modal-res-new-word">
+                    <div className="modal-content">
+                        {this.state.modalMsg}
                     </div>
-                </form>
+                    <div className="modal-footer">
+                        <a href="#!" className="modal-close btn-flat">Close</a>
+                    </div>
+                </div>
             </div>
-        </div>;
+        );
     }
 }

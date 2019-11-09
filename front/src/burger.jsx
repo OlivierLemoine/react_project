@@ -37,14 +37,13 @@ export default class extends React.Component {
       div > {
         isMenuShown ? (
           <div className="side">
-          <a href='#' className="medium material-icons" onClick = {this.handleHideClick}>menu</a>
+          <a href='#' className="large material-icons" onClick = {this.handleHideClick}>menu</a>
          <Menu/>
          </div>
 
         ) : (
           <div>
-
-          <a href='#' className="medium material-icons" onClick = {this.handleShowClick}>menu</a>
+          <a href='#' className="large material-icons" onClick = {this.handleShowClick}>menu</a>
           </div>
 
         )

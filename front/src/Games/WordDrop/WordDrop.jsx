@@ -27,7 +27,19 @@ export default class extends React.Component {
     }
 
     keyListener(e) {
-        console.log(e.key);
+        switch (e.key) {
+            case '1':
+                console.log('der');
+                break;
+            case '2':
+                console.log('die');
+                break;
+            case '3':
+                console.log('das');
+                break;
+            default:
+                break;
+        }
     }
 
     componentDidMount() {

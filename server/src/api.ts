@@ -22,7 +22,8 @@ function verifyWordName(req: any, res: any, next: NextFunction) {
 
 router
     .get('/words/:wordName', verifyWordName, (req, res) => {
-        res.status(404).end(Responses.NotImplemented());
+        //@ts-ignore
+        res.end(Responses.Ok(db.get('words').find({ name: req.params.wordName }).value()));
     })
     .post('/words/', json(), (req, res) => {
         let word = req.body.name;

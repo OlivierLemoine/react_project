@@ -10,17 +10,36 @@ const GAME_STATE = {
 
 const TRANSITIONS = {
     StartGame: 'StartGame',
+    AsteroidAtBottom: 'AsteroidAtBottom',
 }
 
 export default class extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             gameState: GAME_STATE.Menu,
             game: {
+                asteroids: [this.generateAsteroid(1)],
                 point: 0
             }
+        }
+    }
+
+    generateAsteroid(difficulty) {
+        return {
+            word: this.props.words[Math.floor(Math.random() * this.props.words.length)],
+            speed: difficulty + 20,
+            position: (() => {
+                switch (Math.floor(Math.random() * 3)) {
+                    case 0:
+                        return "left";
+                    case 1:
+                        return "right";
+                    default:
+                        return "middle";
+                }
+            })()
         }
     }
 
@@ -30,6 +49,15 @@ export default class extends React.Component {
                 switch (transition) {
                     case TRANSITIONS.StartGame:
                         this.setState({ gameState: GAME_STATE.Playing });
+                        break;
+                    default:
+                        throw new Error('Not in a valid transition');
+                }
+                break;
+            case GAME_STATE.Playing:
+                switch (transition) {
+                    case TRANSITIONS.AsteroidAtBottom:
+                        this.setState({ gameState: GAME_STATE.GameOver })
                         break;
                     default:
                         throw new Error('Not in a valid transition');
@@ -52,12 +80,17 @@ export default class extends React.Component {
         return (
             <div>
                 <img className="big-moon-img" src="moon.png" alt="" />
-                <Asteroid name="left" movement={{
-                    speed: 100,
-                    position: "left",
-                    bottom: 50,
-                    isMoving: true,
-                }} atBottom={(e) => console.log(e)} />
+
+                {
+                    this.state.game.asteroids.map(asteroid => (
+                        <Asteroid key={asteroid.word.name} word={asteroid.word} movement={{
+                            speed: asteroid.speed,
+                            position: asteroid.position,
+                            bottom: 50,
+                            isMoving: true,
+                        }} atBottom={() => console.log("oups")} />
+                    ))
+                }
             </div>
         );
     }

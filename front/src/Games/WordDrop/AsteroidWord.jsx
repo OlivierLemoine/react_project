@@ -8,7 +8,7 @@ export default class extends React.Component {
         this.state = {
             rotationSpeed: (() => `${Math.floor(Math.random() * 30 + 10) / 10}s`)(),
             sens: Math.floor(Math.random() * 2) === 1,
-            position: 0,
+            position: -150,
         };
 
         this.speed = props.movement.speed / 100;
@@ -28,7 +28,7 @@ export default class extends React.Component {
         if (this.props.movement.isMoving) {
 
             if (this.state.position > this.props.movement.bottom) {
-                this.props.atBottom(this);
+                this.props.atBottom();
                 this.isRuning = false;
             }
 
@@ -60,7 +60,7 @@ export default class extends React.Component {
                     animationDuration: this.state.rotationSpeed,
                     animationName: this.state.sens ? "asteroidRotateClockwise" : "asteroidRotateAntiClockwise",
                 }}></img>
-                <span className="asteroid-name center-align">{this.props.name}</span>
+                <span className="asteroid-name center-align">{this.props.word.name}</span>
             </div>
         );
     }

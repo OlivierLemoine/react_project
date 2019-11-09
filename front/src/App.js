@@ -6,7 +6,12 @@ import DropWord from './Games/WordDrop/WordDrop';
 function App() {
     return (
         <div>
-            <DropWord />
+            <DropWord words={[
+                {
+                    name: "test",
+                    article: "der",
+                }
+            ]} />
         </div>
     );
 }

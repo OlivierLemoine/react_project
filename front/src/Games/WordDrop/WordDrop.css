@@ -1,11 +1,14 @@
 .moon-title{
+    height: 100%;
     position: relative;
-    top: 50%;
-    left: 50%;
+    text-align: center;
+    cursor: pointer;
 }
 
 .moon-title > img{
-    transform: translate(50%, 50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
     animation: moonTitleImageMove 0.65s ease-in-out infinite;
 }
 
@@ -21,7 +24,6 @@
     background-repeat: 10 10;
     height: 100vh;
     animation: backgroundMove 1000000s infinite linear;
-    position: relative;
 }
 
 @keyframes backgroundMove{

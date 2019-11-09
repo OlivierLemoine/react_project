@@ -1,4 +1,11 @@
-export const Ok = () => `{"status":"Ok"}`;
+export const Ok = (obj?: any) => {
+    if (obj)
+        return JSON.stringify({
+            status: "Ok",
+            data: obj,
+        });
+    else return '{"status":"Ok"}'
+};
 
 export const InvalidType = (varName: string) => `{"status":"Err","type":"InvalidType","message":"${varName} doesn't have a valid type"}`;
 

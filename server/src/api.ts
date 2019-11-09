@@ -53,6 +53,10 @@ router
     })
     .get('/words', (req, res) => {
         res.end(JSON.stringify(db.get('words')));
+    }).delete('/flush-all', (req, res) => {
+        //@ts-ignore
+        db.get('words').remove().write();
+        res.end(Responses.Ok());
     });
 
 export default router;

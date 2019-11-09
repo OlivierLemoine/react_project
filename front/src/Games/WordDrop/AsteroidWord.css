@@ -1,6 +1,6 @@
 .asteroid-container{
     max-width: 10em;
-    position: relative;
+    position: absolute;
     text-align: center;
 }
 

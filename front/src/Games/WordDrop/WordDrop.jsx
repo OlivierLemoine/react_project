@@ -28,8 +28,11 @@ export default class extends React.Component {
     renderGame() {
         return (
             <div>
-                <Asteroid name="test" />
-                <Asteroid name="test2" />
+                <Asteroid name="left" movement={{
+                    speed: 10,
+                    position: "left",
+                    bottom: 50,
+                }} atBottom={(e) => console.log(e)} />
             </div>
         );
     }

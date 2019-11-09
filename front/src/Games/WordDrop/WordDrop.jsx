@@ -15,38 +15,75 @@ export default class extends React.Component {
         this.state = {
             gameState: GAME_STATE.Menu,
             game: {
-                asteroids: [this.generateAsteroid(10)],
-                point: 0
+                asteroids: [],
+                point: 0,
+                difficulty: 1,
             }
-        }
+        };
+
+        this.isRunning = true;
+
+        this.id = 0;
     }
 
     keyListener(e) {
-        switch (e.key) {
-            case '1':
-                console.log('der');
-                break;
-            case '2':
-                console.log('die');
-                break;
-            case '3':
-                console.log('das');
-                break;
-            default:
-                break;
+        let det = (() => {
+            switch (e.key) {
+                case '1':
+                    return 'der';
+                case '2':
+                    return 'die';
+                case '3':
+                    return 'das';
+                default:
+                    return null;
+            }
+        })();
+
+        if (this.state.game.asteroids.length > 0) {
+            if (det === this.state.game.asteroids[0].word.article) {
+                this.setState(state => {
+                    state.game.asteroids.splice(0, 1);
+                    state.game.difficulty += 1;
+                    return state;
+                });
+            } else {
+                this.setState(state => {
+                    state.game.asteroids[0].speed *= 2;
+                    return state;
+                })
+            }
+        } else {
+            this.setState(state => {
+                state.game.asteroids.push(this.generateAsteroid(state.game.difficulty));
+                return state;
+            });
         }
     }
 
     componentDidMount() {
-        document.body.addEventListener('keypress', this.keyListener);
+        document.body.addEventListener('keypress', this.keyListener.bind(this));
+        this.updateGame();
     }
 
     componentWillUnmount() {
-        document.body.removeEventListener('keypress', this.keyListener);
+        document.body.removeEventListener('keypress', this.keyListener.bind(this));
+        this.isRunning = false;
+    }
+
+    updateGame() {
+        this.setState(state => {
+            state.game.asteroids.push(this.generateAsteroid(state.game.difficulty));
+            return state;
+        });
+
+        if (this.isRunning)
+            setTimeout(this.updateGame.bind(this), 2000 / (0.1 * this.state.game.difficulty));
     }
 
     generateAsteroid(difficulty) {
         return {
+            id: this.id++,
             word: this.props.words[Math.floor(Math.random() * this.props.words.length)],
             speed: difficulty * 5 + 20,
             position: (() => {
@@ -77,7 +114,7 @@ export default class extends React.Component {
 
                 {
                     this.state.game.asteroids.map(asteroid => (
-                        <Asteroid key={asteroid.word.name} word={asteroid.word} movement={{
+                        <Asteroid key={asteroid.id} word={asteroid.word} movement={{
                             speed: asteroid.speed,
                             position: asteroid.position,
                             bottom: (document.body.clientHeight) * 0.8,

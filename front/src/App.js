@@ -1,11 +1,16 @@
 import React from 'react';
 import './App.css';
-import AddWord from './AddWord/AddWord';
+import Menu from './menu';
+import Burger from './burger';
+
 
 function App() {
     return (
-        <div>
-            <AddWord />
+        <div className="App">
+            <header className="App-header">
+
+                <Burger />
+            </header>
         </div>
     );
 }

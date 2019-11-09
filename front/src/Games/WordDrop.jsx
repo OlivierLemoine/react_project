@@ -1,8 +1,10 @@
 import React from 'react';
 import './WordDrop.css';
+import Asteroid from './AsteroidWord';
 
 const GAME_STATE = {
     Menu: 'Menu',
+    Playing: 'Playing',
 }
 
 export default class extends React.Component {
@@ -10,7 +12,7 @@ export default class extends React.Component {
         super();
 
         this.state = {
-            gameState: GAME_STATE.Menu,
+            gameState: GAME_STATE.Playing,
             game: {
                 point: 0
             }
@@ -23,11 +25,22 @@ export default class extends React.Component {
         );
     }
 
+    renderGame() {
+        return (
+            <div>
+                <Asteroid name="test" />
+                <Asteroid name="test2" />
+            </div>
+        );
+    }
+
     render() {
         let game = (() => {
             switch (this.state.gameState) {
                 case GAME_STATE.Menu:
-                    return this.renderMenu()
+                    return this.renderMenu();
+                case GAME_STATE.Playing:
+                    return this.renderGame();
                 default:
                     return (
                         <div>
@@ -39,7 +52,8 @@ export default class extends React.Component {
 
         return (
             <div className="game-container">
-                <img className="moon-image" src="./moon.png" alt="" />
+                <img className="moon-image" src="moon.png" alt="" />
+                {game}
             </div>
         );
     }

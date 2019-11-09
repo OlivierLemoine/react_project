@@ -18,13 +18,18 @@ export default class extends React.Component {
         };
 
         this.handleSubmit = () => {
-            console.log(this.state);
+            let payload = {
+                name: this.state.wordName,
+                article: this.state.article.toLocaleLowerCase(),
+            };
+
+            let header = new Headers();
+            header.append('Content-Type', 'application/json');
+
             fetch('/api/words', {
                 method: 'POST',
-                body: JSON.stringify({
-                    name: this.state.wordName,
-                    article: this.state.article.toLocaleLowerCase(),
-                })
+                body: JSON.stringify(payload),
+                headers: header,
             })
                 .then(res => res.json()).then(val => {
                     console.log(val);

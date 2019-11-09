@@ -37,10 +37,10 @@ export default class extends React.Component {
     render() {
         return <div className="row">
             <div className="card-panel col m6 offset-m3 s12">
-                <form style={{ margin: "10px" }} className="row">
+                <form style={{ margin: "10px" }} className="row" action="#">
                     <ul className="col s6">
                         {
-                            ["Der", "Die", "Das"].map((article, i) => (
+                            ["Der", "Die", "Das"].map(article => (
                                 <li key={article}>
                                     <label>
                                         <input name="article" type="radio" onChange={this.generateHandleUpdateArticle(article)}
@@ -53,7 +53,7 @@ export default class extends React.Component {
                     </ul>
                     <div className="col s6">
                         <input type="text" value={this.state.wordName} onChange={this.handleUpdateName} />
-                        <button className="btn" type="submit" onClick={this.handleSubmit}>Submit</button>
+                        <button className="btn" onClick={this.handleSubmit}>Submit</button>
                     </div>
                 </form>
             </div>

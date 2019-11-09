@@ -16,7 +16,7 @@ export default class extends React.Component {
             this.setState({ wordName: ev.target.value });
         };
 
-        this.generateHandleUpdateArticle = (article) => () => {
+        this.handleUpdateArticle = (article) => {
             this.setState({ article: article });
         };
 
@@ -59,7 +59,7 @@ export default class extends React.Component {
                                 ["Der", "Die", "Das"].map(article => (
                                     <li key={article}>
                                         <label>
-                                            <input name="article" type="radio" onChange={this.generateHandleUpdateArticle(article)}
+                                            <input name="article" type="radio" onChange={() => this.handleUpdateArticle(article)}
                                                 checked={article === this.state.article} />
                                             <span>{article}</span>
                                         </label>

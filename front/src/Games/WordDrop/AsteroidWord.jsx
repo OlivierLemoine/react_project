@@ -25,10 +25,16 @@ export default class extends React.Component {
 
 
     moveSelf() {
-        if (this.state.position > this.props.movement.bottom)
-            this.props.atBottom(this);
+        if (this.props.movement.isMoving) {
 
-        this.setState({ position: this.state.position + this.speed });
+            if (this.state.position > this.props.movement.bottom) {
+                this.props.atBottom(this);
+                this.isRuning = false;
+            }
+
+            this.setState({ position: this.state.position + this.speed });
+
+        }
 
         if (this.isRuning)
             window.requestAnimationFrame(this.moveSelf.bind(this))

@@ -7,7 +7,7 @@ import FileSync from "lowdb/adapters/FileSync";
 import * as Errors from "./errors";
 
 
-const db = low(new FileSync('db.json'));
+const db = low(new FileSync('build/db.json'));
 db.defaults({ words: [] }).write();
 
 const router = express.Router();
@@ -36,7 +36,7 @@ router
             res.status(400).end(Errors.OutOfBound("article"));
         else {
             //@ts-ignore
-            if (db.get('words').find({ name: word })) {
+            if (db.get('words').find({ name: word }).value()) {
                 res.status(400).end(Errors.AlreadyExist(word));
             } else {
                 //@ts-ignore
@@ -46,8 +46,9 @@ router
         }
     })
     .delete('/words/:wordName', verifyWordName, (req, res) => {
+        let word = req.params.wordName;
         //@ts-ignore
-        db.get('words').remove({ word: word }).write();
+        db.get('words').remove({ name: word }).write();
         res.end();
     })
     .get('/words', (req, res) => {

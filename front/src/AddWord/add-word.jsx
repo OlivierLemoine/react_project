@@ -19,7 +19,7 @@ export default class extends React.Component {
 
         this.handleSubmit = () => {
             console.log(this.state);
-            fetch({
+            fetch('/api/words', {
                 method: 'POST',
                 body: JSON.stringify({
                     name: this.state.wordName,
@@ -37,7 +37,7 @@ export default class extends React.Component {
     render() {
         return <div className="row">
             <div className="card-panel col m6 offset-m3 s12">
-                <form style={{ margin: "10px" }} action="#" className="row">
+                <form style={{ margin: "10px" }} className="row">
                     <ul className="col s6">
                         {
                             ["Der", "Die", "Das"].map((article, i) => (

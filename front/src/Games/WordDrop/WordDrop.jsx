@@ -8,11 +8,6 @@ const GAME_STATE = {
     GameOver: 'GameOver',
 };
 
-const TRANSITIONS = {
-    StartGame: 'StartGame',
-    AsteroidAtBottom: 'AsteroidAtBottom',
-}
-
 export default class extends React.Component {
     constructor(props) {
         super(props);
@@ -20,7 +15,7 @@ export default class extends React.Component {
         this.state = {
             gameState: GAME_STATE.Menu,
             game: {
-                asteroids: [this.generateAsteroid(1)],
+                asteroids: [this.generateAsteroid(10)],
                 point: 0
             }
         }
@@ -53,7 +48,7 @@ export default class extends React.Component {
     generateAsteroid(difficulty) {
         return {
             word: this.props.words[Math.floor(Math.random() * this.props.words.length)],
-            speed: difficulty + 20,
+            speed: difficulty * 5 + 20,
             position: (() => {
                 switch (Math.floor(Math.random() * 3)) {
                     case 0:
@@ -67,34 +62,9 @@ export default class extends React.Component {
         }
     }
 
-    updateGameState(transition) {
-        switch (this.state.gameState) {
-            case GAME_STATE.Menu:
-                switch (transition) {
-                    case TRANSITIONS.StartGame:
-                        this.setState({ gameState: GAME_STATE.Playing });
-                        break;
-                    default:
-                        throw new Error('Not in a valid transition');
-                }
-                break;
-            case GAME_STATE.Playing:
-                switch (transition) {
-                    case TRANSITIONS.AsteroidAtBottom:
-                        this.setState({ gameState: GAME_STATE.GameOver })
-                        break;
-                    default:
-                        throw new Error('Not in a valid transition');
-                }
-                break;
-            default:
-                throw new Error('Not in a valid state');
-        }
-    }
-
     renderMenu() {
         return (
-            <div className="moon-title" onClick={() => this.updateGameState(TRANSITIONS.StartGame)}>
+            <div className="moon-title" onClick={() => this.setState({ gameState: GAME_STATE.Playing })}>
                 <img src="moon_title.png" alt="moon title" />
             </div>
         );
@@ -110,11 +80,21 @@ export default class extends React.Component {
                         <Asteroid key={asteroid.word.name} word={asteroid.word} movement={{
                             speed: asteroid.speed,
                             position: asteroid.position,
-                            bottom: 50,
+                            bottom: (document.body.clientHeight) * 0.8,
                             isMoving: true,
-                        }} atBottom={() => console.log("oups")} />
+                        }} atBottom={() => this.setState({ gameState: GAME_STATE.GameOver })} />
                     ))
                 }
+            </div>
+        );
+    }
+
+    renderGameOver() {
+        return (
+            <div>
+                <button className="btn" onClick={() => this.setState({ gameState: GAME_STATE.Menu })}>
+                    Restart
+                </button>
             </div>
         );
     }
@@ -126,6 +106,8 @@ export default class extends React.Component {
                     return this.renderMenu();
                 case GAME_STATE.Playing:
                     return this.renderGame();
+                case GAME_STATE.GameOver:
+                    return this.renderGameOver();
                 default:
                     return (
                         <div style={{ backgroundColor: "white", padding: "30px" }}>

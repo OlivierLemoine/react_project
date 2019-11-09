@@ -26,6 +26,18 @@ export default class extends React.Component {
         }
     }
 
+    keyListener(e) {
+        console.log(e.key);
+    }
+
+    componentDidMount() {
+        document.body.addEventListener('keypress', this.keyListener);
+    }
+
+    componentWillUnmount() {
+        document.body.removeEventListener('keypress', this.keyListener);
+    }
+
     generateAsteroid(difficulty) {
         return {
             word: this.props.words[Math.floor(Math.random() * this.props.words.length)],

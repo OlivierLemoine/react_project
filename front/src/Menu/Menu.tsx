@@ -36,6 +36,9 @@ export default class extends React.Component<Props, State> {
                         <li>
                             <Link to="/add-word">Add word</Link>
                         </li>
+                        <li>
+                            <Link to="/show-words">Show words</Link>
+                        </li>
                     </ul>
                 </div>
                 <div className="burger-button">

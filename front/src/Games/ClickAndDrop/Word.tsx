@@ -75,7 +75,7 @@ export default class extends React.Component<Props, State> {
 
     render() {
         return (
-            <div>
+            <div className="game-content">
                 <div>
                     <div className="timer center-align">
                         {
@@ -85,7 +85,7 @@ export default class extends React.Component<Props, State> {
                         }
                     </div>
                     <h1 className='center-align'>{this.state.score}</h1>
-                    <div className="card-panel teal lighten-2 center-align">
+                    <div className="card-panel lighten-2 center-align">
                         {
                             this.state.currWord && this.state.gameState === GameState.Running ? this.state.currWord.name : "."
                         }

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import AddWord from './AddWord/AddWord';
+import AddWord from './HandleWord/AddWord';
 import DropWord from './Games/WordDrop/WordDrop';
 import ClickNDrop from "./Games/ClickAndDrop/Word";
 import Menu from "./Menu/Menu";
@@ -24,6 +24,8 @@ export default class extends React.Component {
                         </Route>
                         <Route path="/add-word">
                             <AddWord />
+                        </Route>
+                        <Route path="/show-words">
                         </Route>
                         <Route path="/">
                             <img src="wip.jpg" alt="WIP" style={{

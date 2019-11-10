@@ -1,4 +1,5 @@
 import React from 'react';
+import Word from './word'
 
 export default class Article extends React.Component {
   constructor(props) {
@@ -7,7 +8,7 @@ export default class Article extends React.Component {
   }
 
   render() {
-    return (<a id='buttontext'  href='#'> {this.props.article}</a>);
+    return (<button id='ArticleID' onClick={()=>this.props.onClick(this.props.article)}>{this.props.article}</button>);
 
   }
 }

@@ -2,16 +2,12 @@ import React from 'react';
 import './App.css';
 // import AddWord from './AddWord/AddWord';
 import DropWord from './Games/WordDrop/WordDrop';
+import Word from './clickanddrop/word';
 
 function App() {
     return (
         <div>
-            <DropWord words={[
-                {
-                    name: "test",
-                    article: "der",
-                }
-            ]} />
+            <Word/>
         </div>
     );
 }

@@ -16,11 +16,11 @@ export default class ListArticles extends React.Component {
       <div>
 
       <div class="row">
-      <div className="waves-effect waves-light btn-large blue col s2 offset-s2">
+      <div id='der'  className="waves-effect waves-light btn-large blue col s2 offset-s2">
       <Article article = {Masc} /> </div>
-      <div className="waves-effect waves-light btn-large blue center-align col s2 offset-s1">
+      <div id='die' className="waves-effect waves-light btn-large blue center-align col s2 offset-s1">
       <Article article = {Fem} /> </div>
-      <div className="waves-effect waves-light btn-large blue center-align col s2 offset-s1">
+      <div id='das' className="waves-effect waves-light btn-large blue center-align col s2 offset-s1">
       <Article article = {Neutr} /> </div>
       </div>
       </div>

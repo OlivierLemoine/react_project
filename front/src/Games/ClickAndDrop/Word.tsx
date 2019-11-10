@@ -1,6 +1,6 @@
 import React from 'react';
-import Article from './article'
-import { Word } from "../Word";
+import Article from './Article'
+import { Word } from "../../Word";
 import Timer from './Timer';
 import './Word.css';
 

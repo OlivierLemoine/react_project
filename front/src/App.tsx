@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import AddWord from './AddWord/AddWord';
 import DropWord from './Games/WordDrop/WordDrop';
-import ClickNDrop from "./ClickAndDrop/Word";
+import ClickNDrop from "./Games/ClickAndDrop/Word";
 import Menu from "./Menu/Menu";
 import {
     BrowserRouter as Router,

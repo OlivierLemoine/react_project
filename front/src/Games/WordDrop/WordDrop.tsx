@@ -129,7 +129,6 @@ export default class extends React.Component<Props, State> {
         return (
             <div>
                 <img className="big-moon-img" src="moon.png" alt="" />
-
                 {
                     this.state.game.asteroids.map(asteroid => (
                         <Asteroid key={asteroid.id} word={asteroid.word} movement={{
@@ -147,9 +146,8 @@ export default class extends React.Component<Props, State> {
     renderGameOver() {
         return (
             <div className="game-over-btn">
-                <button className="btn" onClick={() => this.setState({ gameState: GAME_STATE.Menu })}>
-                    Restart
-                </button>
+                <img src="score_screen.png" alt="Score" />
+                <span onClick={() => this.setState({ gameState: GAME_STATE.Menu })}>{this.state.game.difficulty}</span>
             </div>
         );
     }

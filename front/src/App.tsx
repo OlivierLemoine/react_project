@@ -25,7 +25,12 @@ export default class extends React.Component {
                         <Route path="/add-word">
                             <AddWord />
                         </Route>
-                        <Route path="/"></Route>
+                        <Route path="/">
+                            <img src="wip.jpg" alt="WIP" style={{
+                                maxHeight: "100%",
+                                maxWidth: "100%",
+                            }} />
+                        </Route>
                     </Switch>
                     <Menu />
                 </div>

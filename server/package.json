@@ -4,6 +4,7 @@
     "description": "",
     "main": "main.js",
     "scripts": {
+        "prestart": "npm run build",
         "start": "npx nodemon --watch build/**/*.js build/main.js",
         "build": "npx tsc",
         "watch": "npx tsc --watch"

@@ -8,7 +8,7 @@ export default class extends React.Component {
         this.state = {
             rotationSpeed: (() => `${Math.floor(Math.random() * 30 + 10) / 10}s`)(),
             sens: Math.floor(Math.random() * 2) === 1,
-            position: -150,
+            position: -100,
         };
 
         this.speed = props.movement.speed / 100;
@@ -25,19 +25,20 @@ export default class extends React.Component {
 
 
     moveSelf() {
-        if (this.props.movement.isMoving) {
+        if (this.isRuning) {
+            if (this.props.movement.isMoving) {
 
-            if (this.state.position > this.props.movement.bottom) {
-                this.props.atBottom();
-                this.isRuning = false;
+                if (this.state.position > this.props.movement.bottom) {
+                    this.props.atBottom();
+                    this.isRuning = false;
+                }
+
+                this.setState({ position: this.state.position + this.speed });
+
             }
 
-            this.setState({ position: this.state.position + this.speed });
-
-        }
-
-        if (this.isRuning)
             window.requestAnimationFrame(this.moveSelf.bind(this))
+        }
     }
 
     render() {

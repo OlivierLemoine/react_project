@@ -8,17 +8,21 @@ const GAME_STATE = {
     GameOver: 'GameOver',
 };
 
+function INIT_GAME_STATE() {
+    return {
+        asteroids: [],
+        point: 0,
+        difficulty: 1,
+    }
+}
+
 export default class extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             gameState: GAME_STATE.Menu,
-            game: {
-                asteroids: [],
-                point: 0,
-                difficulty: 1,
-            }
+            game: INIT_GAME_STATE()
         };
 
         this.isRunning = true;
@@ -71,14 +75,20 @@ export default class extends React.Component {
         this.isRunning = false;
     }
 
-    updateGame() {
-        this.setState(state => {
-            state.game.asteroids.push(this.generateAsteroid(state.game.difficulty));
-            return state;
-        });
+    resetGame() {
+        this.setState({ game: INIT_GAME_STATE(), gameState: GAME_STATE.Menu });
+    }
 
-        if (this.isRunning)
-            setTimeout(this.updateGame.bind(this), 2000 / (0.1 * this.state.game.difficulty));
+    updateGame() {
+        if (this.isRunning) {
+            this.setState(state => {
+                state.game.asteroids.push(this.generateAsteroid(state.game.difficulty));
+                return state;
+            });
+
+
+            setTimeout(this.updateGame.bind(this), 5000 / (1 + this.state.game.difficulty));
+        }
     }
 
     generateAsteroid(difficulty) {
@@ -128,8 +138,8 @@ export default class extends React.Component {
 
     renderGameOver() {
         return (
-            <div>
-                <button className="btn" onClick={() => this.setState({ gameState: GAME_STATE.Menu })}>
+            <div className="game-over-btn">
+                <button className="btn" onClick={() => this.resetGame()}>
                     Restart
                 </button>
             </div>

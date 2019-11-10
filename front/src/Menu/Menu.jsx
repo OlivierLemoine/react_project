@@ -1,19 +1,16 @@
 import React from 'react';
 import './Burger.css'
+import { Link } from 'react-router-dom';
 
 export default class extends React.Component {
-    constructor() {
-        super();
-    }
-
     render() {
         return (
             <div>
                 <br />
-                <a div='Section' href="#">About</a><br /><br />
-                <a div='Section' href="#">Game 1</a><br />
-                <a div='Section' href="#">Game 2</a><br />
-                <a div='Section' href="#">Game 3</a><br />
+                <Link to="/">About</Link><br /><br />
+                <Link to="/">Game 1</Link><br />
+                <Link to="/moon-defender">Moon Defender</Link><br /><br />
+                <Link to="/">Add word</Link>
             </div>
         );
     }

@@ -1,10 +1,6 @@
 import React from 'react';
 
 export default class extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     async componentDidMount() {
         let res = await fetch('/api/words').catch(reason => console.log(reason));
         let val = await res.json();

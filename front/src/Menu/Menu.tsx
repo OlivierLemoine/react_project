@@ -27,7 +27,7 @@ export default class extends React.Component<Props, State> {
                         </li>
                         <br />
                         <li>
-                            <Link to="/">Game 1</Link>
+                            <Link to="/click-n-drop">Click N Drop</Link>
                         </li>
                         <li>
                             <Link to="/moon-defender">Moon Defender</Link>

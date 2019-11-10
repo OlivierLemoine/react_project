@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import AddWord from './AddWord/AddWord';
 import DropWord from './Games/WordDrop/WordDrop';
-// import Burger from "./Menu/Burger";
+import ClickNDrop from "./ClickAndDrop/Word";
 import Menu from "./Menu/Menu";
 import {
     BrowserRouter as Router,
@@ -18,6 +18,9 @@ export default class extends React.Component {
                     <Switch>
                         <Route path="/moon-defender">
                             <DropWord />
+                        </Route>
+                        <Route path="/click-n-drop">
+                            <ClickNDrop />
                         </Route>
                         <Route path="/add-word">
                             <AddWord />

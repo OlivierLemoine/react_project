@@ -3,7 +3,7 @@ import './AsteroidWord.css';
 import { Word } from "../../Word";
 import { Position } from "./Asteroid";
 
-type AsteroidProp = {
+type Props = {
     word: Word,
     movement: {
         speed: number,
@@ -14,14 +14,14 @@ type AsteroidProp = {
     atBottom: () => void
 }
 
-type AsteroidState = {
+type State = {
     rotationSpeed: string,
     sens: boolean,
     position: number,
 }
 
-export default class extends React.Component<AsteroidProp, AsteroidState> {
-    state: AsteroidState = {
+export default class extends React.Component<Props, State> {
+    state: State = {
         rotationSpeed: (() => `${Math.floor(Math.random() * 30 + 10) / 10}s`)(),
         sens: Math.floor(Math.random() * 2) === 1,
         position: -100,
@@ -30,7 +30,7 @@ export default class extends React.Component<AsteroidProp, AsteroidState> {
     speed: number
     isRuning = true
 
-    constructor(props: AsteroidProp) {
+    constructor(props: Props) {
         super(props);
 
         this.speed = props.movement.speed / 100;

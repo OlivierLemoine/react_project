@@ -19,7 +19,9 @@ function INIT_GAME_STATE() {
     }
 }
 
-type WordDropState = {
+type Props = {}
+
+type State = {
     gameState: GAME_STATE
     game: {
         asteroids: AsteroidInterface[],
@@ -29,10 +31,8 @@ type WordDropState = {
     words: Word[]
 }
 
-type WordDropProp = {}
-
-export default class extends React.Component<WordDropProp, WordDropState> {
-    state: WordDropState = {
+export default class extends React.Component<Props, State> {
+    state: State = {
         gameState: GAME_STATE.Loading,
         game: INIT_GAME_STATE(),
         words: []
@@ -41,7 +41,7 @@ export default class extends React.Component<WordDropProp, WordDropState> {
     isRunning = false
     id = 0
 
-    constructor(props: WordDropProp) {
+    constructor(props: Props) {
         super(props);
 
         fetch('/api/words').then(res => res.json()).then(val => this.setState({ words: val.data, gameState: GAME_STATE.Menu }));

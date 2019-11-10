@@ -78,7 +78,11 @@ export default class extends React.Component<Props, State> {
             <div>
                 <div>
                     <div className="timer center-align">
-                        <Timer sec={10} isRunning={this.state.gameState === GameState.Running} onEnd={() => this.setState({ gameState: GameState.Ending })} />
+                        {
+                            this.state.gameState !== GameState.Ending ?
+                                <Timer sec={10} isRunning={this.state.gameState === GameState.Running} onEnd={() => this.setState({ gameState: GameState.Ending })} />
+                                : <div></div>
+                        }
                     </div>
                     <h1 className='center-align'>{this.state.score}</h1>
                     <div className="card-panel teal lighten-2 center-align">

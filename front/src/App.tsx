@@ -12,19 +12,12 @@ import {
 
 export default class extends React.Component {
     render() {
-        let list = [
-            {
-                name: "test",
-                article: "der",
-            }
-        ];
-
         return (
             <Router>
                 <div id="container">
                     <Switch>
                         <Route path="/moon-defender">
-                            <DropWord words={list} />
+                            <DropWord />
                         </Route>
                         <Route path="/add-word">
                             <AddWord />

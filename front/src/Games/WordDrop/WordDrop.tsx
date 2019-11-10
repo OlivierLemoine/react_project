@@ -1,36 +1,47 @@
 import React from 'react';
 import './WordDrop.css';
 import Asteroid from './AsteroidWord';
+import { Word } from "../../Word";
+import { positionFromNumber, Asteroid as AsteroidInterface } from './Asteroid';
 
-const GAME_STATE = {
-    Menu: 'Menu',
-    Playing: 'Playing',
-    GameOver: 'GameOver',
-};
+enum GAME_STATE {
+    Loading,
+    Menu,
+    Playing,
+    GameOver,
+}
 
 function INIT_GAME_STATE() {
     return {
         asteroids: [],
-        point: 0,
+        points: 0,
         difficulty: 1,
     }
 }
 
-export default class extends React.Component {
-    constructor(props) {
-        super(props);
+type WordDropState = {
+    gameState: GAME_STATE
+    game: {
+        asteroids: AsteroidInterface[],
+        points: number,
+        difficulty: number,
+    }
+    words: Word[]
+}
 
-        this.state = {
-            gameState: GAME_STATE.Menu,
-            game: INIT_GAME_STATE()
-        };
+type WordDropProp = {}
 
-        this.isRunning = true;
-
-        this.id = 0;
+export default class extends React.Component<WordDropProp, WordDropState> {
+    state: WordDropState = {
+        gameState: GAME_STATE.Loading,
+        game: INIT_GAME_STATE(),
+        words: []
     }
 
-    keyListener(e) {
+    isRunning = true
+    id = 0
+
+    keyListener(e: KeyboardEvent) {
         let det = (() => {
             switch (e.key) {
                 case '1':
@@ -91,21 +102,12 @@ export default class extends React.Component {
         }
     }
 
-    generateAsteroid(difficulty) {
+    generateAsteroid(difficulty: number): AsteroidInterface {
         return {
             id: this.id++,
-            word: this.props.words[Math.floor(Math.random() * this.props.words.length)],
+            word: this.state.words[Math.floor(Math.random() * this.state.words.length)],
             speed: difficulty * 5 + 20,
-            position: (() => {
-                switch (Math.floor(Math.random() * 3)) {
-                    case 0:
-                        return "left";
-                    case 1:
-                        return "right";
-                    default:
-                        return "middle";
-                }
-            })()
+            position: positionFromNumber(Math.floor(Math.random() * 3)),
         }
     }
 
@@ -146,9 +148,19 @@ export default class extends React.Component {
         );
     }
 
+    renderLoading() {
+        return (
+            <div>
+                Loading...
+            </div>
+        );
+    }
+
     render() {
         let game = (() => {
             switch (this.state.gameState) {
+                case GAME_STATE.Loading:
+                    return this.renderLoading();
                 case GAME_STATE.Menu:
                     return this.renderMenu();
                 case GAME_STATE.Playing:

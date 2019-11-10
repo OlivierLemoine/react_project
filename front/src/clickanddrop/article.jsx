@@ -7,7 +7,7 @@ export default class Article extends React.Component {
     }
 
     render() {
-        return (<button id='ArticleID' onClick={() => this.props.onClick(this.props.article)}>{this.props.article}</button>);
+        return (<button class="waves-effect waves-light btn" id='ArticleID' onClick={() => this.props.onClick(this.props.article)}>{this.props.article}</button>);
 
     }
 }

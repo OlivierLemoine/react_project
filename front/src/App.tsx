@@ -22,18 +22,16 @@ export default class extends React.Component {
         return (
             <Router>
                 <div id="container">
+                    <Switch>
+                        <Route path="/moon-defender">
+                            <DropWord words={list} />
+                        </Route>
+                        <Route path="/add-word">
+                            <AddWord />
+                        </Route>
+                        <Route path="/"></Route>
+                    </Switch>
                     <Menu />
-                    <div className="content">
-                        <Switch>
-                            <Route path="/moon-defender">
-                                <DropWord words={list} />
-                            </Route>
-                            <Route path="/add-word">
-                                <AddWord />
-                            </Route>
-                            <Route path="/"></Route>
-                        </Switch>
-                    </div>
                 </div>
             </Router>
         );

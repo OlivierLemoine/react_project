@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     margin: 0;
-    padding: 20px 0;
+    padding: 60px 0 0 0;
     width: 300px;
     height: 100%;
     background-color: rgb(40, 40, 40);
@@ -33,7 +33,26 @@
 }
   
 @media only screen and (max-width : 992px) {
-    .menu {
+    .hidden-menu {
         display: none;
+    }
+}
+
+.burger-button{
+    display: none;
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    margin: 0;
+    padding: 0;
+}
+
+.burger-button > * {
+    font-size: 50px;
+}
+
+@media only screen and (max-width : 992px) {
+    .burger-button {
+        display: block;
     }
 }

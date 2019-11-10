@@ -1,5 +1,5 @@
 import React from 'react';
-import './burger.css'
+import './Burger.css'
 
 export default class extends React.Component {
     constructor() {

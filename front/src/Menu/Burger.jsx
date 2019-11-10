@@ -1,6 +1,6 @@
 import React from 'react';
 import Menu from './Menu';
-import './burger.css'
+import './Burger.css';
 
 export default class extends React.Component {
     constructor(props) {

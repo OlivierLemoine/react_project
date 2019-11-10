@@ -38,8 +38,14 @@ export default class extends React.Component<WordDropProp, WordDropState> {
         words: []
     }
 
-    isRunning = true
+    isRunning = false
     id = 0
+
+    constructor(props: WordDropProp) {
+        super(props);
+
+        fetch('/api/words').then(res => res.json()).then(val => this.setState({ words: val.data, gameState: GAME_STATE.Menu }));
+    }
 
     keyListener(e: KeyboardEvent) {
         let det = (() => {
@@ -86,10 +92,6 @@ export default class extends React.Component<WordDropProp, WordDropState> {
         this.isRunning = false;
     }
 
-    resetGame() {
-        this.setState({ game: INIT_GAME_STATE(), gameState: GAME_STATE.Menu });
-    }
-
     updateGame() {
         if (this.isRunning) {
             this.setState(state => {
@@ -98,7 +100,7 @@ export default class extends React.Component<WordDropProp, WordDropState> {
             });
 
 
-            setTimeout(this.updateGame.bind(this), 5000 / (1 + this.state.game.difficulty));
+            setTimeout(this.updateGame.bind(this), 5000 / (1 + 0.1 * this.state.game.difficulty));
         }
     }
 
@@ -106,14 +108,18 @@ export default class extends React.Component<WordDropProp, WordDropState> {
         return {
             id: this.id++,
             word: this.state.words[Math.floor(Math.random() * this.state.words.length)],
-            speed: difficulty * 5 + 20,
+            speed: difficulty * 5 + 70,
             position: positionFromNumber(Math.floor(Math.random() * 3)),
         }
     }
 
     renderMenu() {
         return (
-            <div className="moon-title" onClick={() => this.setState({ gameState: GAME_STATE.Playing })}>
+            <div className="moon-title" onClick={() => {
+                this.isRunning = true;
+                this.updateGame();
+                this.setState({ game: INIT_GAME_STATE(), gameState: GAME_STATE.Playing });
+            }}>
                 <img src="moon_title.png" alt="moon title" />
             </div>
         );
@@ -141,7 +147,7 @@ export default class extends React.Component<WordDropProp, WordDropState> {
     renderGameOver() {
         return (
             <div className="game-over-btn">
-                <button className="btn" onClick={() => this.resetGame()}>
+                <button className="btn" onClick={() => this.setState({ gameState: GAME_STATE.Menu })}>
                     Restart
                 </button>
             </div>

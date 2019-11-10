@@ -1,4 +1,5 @@
 import React from 'react';
+import './AddWord.css';
 
 let M = window.M;
 
@@ -51,7 +52,7 @@ export default class extends React.Component {
 
     render() {
         return (
-            <div className="row">
+            <div className="add-word row valign-wrapper">
                 <div className="card-panel col m6 offset-m3 s12">
                     <form style={{ margin: "10px" }} className="row" action="#">
                         <ul className="col s6">
@@ -68,7 +69,7 @@ export default class extends React.Component {
                             }
                         </ul>
                         <div className="col s6">
-                            <input type="text" value={this.state.wordName} onChange={this.handleUpdateName} />
+                            <input className="word-name" type="text" value={this.state.wordName} onChange={this.handleUpdateName} />
                             <button className="btn" onClick={this.handleSubmit}>Submit</button>
                         </div>
                     </form>

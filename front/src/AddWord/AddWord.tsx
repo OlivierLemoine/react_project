@@ -5,19 +5,25 @@ import { Article, articleFromString } from "../Word";
 //@ts-ignore
 let M = window.M;
 
+enum ServRes {
+    Err,
+    AlreadyExist,
+    Ok,
+}
+
 type Props = {}
 
 type State = {
     article: Article,
     wordName: string,
-    modalMsg: string,
+    servRes: ServRes,
 }
 
 export default class extends React.Component<Props, State> {
     state: State = {
         article: Article.Der,
         wordName: "",
-        modalMsg: "",
+        servRes: ServRes.Err,
     }
 
     handleUpdateName(ev: React.ChangeEvent<HTMLInputElement>) {
@@ -44,15 +50,69 @@ export default class extends React.Component<Props, State> {
         })
             .then(async res => {
                 let val = await res.json();
-                let err = val.message || "The server response was not correctly formated";
+                // let err = val.message || "The server response was not correctly formated";
 
-                this.setState({ modalMsg: res.status !== 200 ? err : "Ok" });
+                let serRes: ServRes = (() => {
+                    if (val.status === "Ok")
+                        return ServRes.Ok;
+                    else if (val.type === "AlreadyExist")
+                        return ServRes.AlreadyExist;
+                    else
+                        return ServRes.Err;
+                })();
+
+                this.setState({ servRes: serRes });
 
                 let modElem = document.querySelector('#modal-res-new-word');
                 let instance = M.Modal.init(modElem);
                 instance.open();
             })
             .catch(reason => console.log(reason));
+    }
+
+    handleReplaceWord() {
+        let payload = {
+            article: this.state.article.toLocaleLowerCase(),
+        };
+
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+
+        fetch(`/api/words/${this.state.wordName}`, {
+            method: 'PUT',
+            body: JSON.stringify(payload),
+            headers: header,
+        });
+
+        let modElem = document.querySelector('#modal-res-new-word');
+        let instance = M.Modal.init(modElem);
+        instance.close();
+    }
+
+    renderErrMsg() {
+        switch (this.state.servRes) {
+            case ServRes.Ok:
+                return (
+                    <div>
+                        Ok
+                    </div>
+                );
+            case ServRes.AlreadyExist:
+                return (
+                    <div>
+                        <p>
+                            This word already exist, would you like to replace it ?
+                        </p>
+                        <button className="btn" onClick={() => this.handleReplaceWord()}>Replace</button>
+                    </div>
+                );
+            default:
+                return (
+                    <div>
+                        The server response was not correctly formated
+                    </div>
+                );
+        }
     }
 
     render() {
@@ -81,7 +141,7 @@ export default class extends React.Component<Props, State> {
                 </div>
                 <div className="modal" id="modal-res-new-word">
                     <div className="modal-content">
-                        {this.state.modalMsg}
+                        {this.renderErrMsg()}
                     </div>
                     <div className="modal-footer">
                         <a href="#!" className="modal-close btn-flat">Close</a>

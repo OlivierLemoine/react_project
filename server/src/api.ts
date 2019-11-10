@@ -46,6 +46,19 @@ router
             }
         }
     })
+    .put('/words/:wordName', verifyWordName, json(), (req, res) => {
+        let word = req.params.wordName;
+        let article = req.body.article;
+        if (typeof article !== 'string')
+            res.status(400).end(Responses.InvalidType("article"));
+        else if (article !== 'der' && article !== 'die' && article !== 'das')
+            res.status(400).end(Responses.OutOfBound("article"));
+        else {
+            //@ts-ignore
+            db.get('words').find({ name: word }).update('article', () => { return req.body.article }).write();
+            res.end(Responses.Ok());
+        }
+    })
     .delete('/words/:wordName', verifyWordName, (req, res) => {
         let word = req.params.wordName;
         //@ts-ignore

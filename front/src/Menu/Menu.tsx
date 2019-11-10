@@ -2,13 +2,15 @@ import React from 'react';
 import './Menu.css'
 import { Link } from 'react-router-dom';
 
-export default class extends React.Component {
-    constructor(props) {
-        super(props);
+type Props = {}
 
-        this.state = {
-            isHidden: true,
-        };
+type State = {
+    isHidden: boolean,
+}
+
+export default class extends React.Component<Props, State> {
+    state: State = {
+        isHidden: true,
     }
 
     flipMenuVisibility() {

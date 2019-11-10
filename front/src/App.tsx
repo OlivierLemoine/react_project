@@ -3,6 +3,7 @@ import './App.css';
 import AddWord from './HandleWord/AddWord';
 import DropWord from './Games/WordDrop/WordDrop';
 import ClickNDrop from "./Games/ClickAndDrop/Word";
+import ShowWords from "./HandleWord/ShowWords";
 import Menu from "./Menu/Menu";
 import {
     BrowserRouter as Router,
@@ -26,6 +27,7 @@ export default class extends React.Component {
                             <AddWord />
                         </Route>
                         <Route path="/show-words">
+                            <ShowWords />
                         </Route>
                         <Route path="/">
                             <img src="wip.jpg" alt="WIP" style={{

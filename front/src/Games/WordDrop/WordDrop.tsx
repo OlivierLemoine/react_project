@@ -41,12 +41,6 @@ export default class extends React.Component<Props, State> {
     isRunning = false
     id = 0
 
-    constructor(props: Props) {
-        super(props);
-
-        fetch('/api/words').then(res => res.json()).then(val => this.setState({ words: val.data, gameState: GAME_STATE.Menu }));
-    }
-
     keyListener(e: KeyboardEvent) {
         let det = (() => {
             switch (e.key) {
@@ -83,6 +77,7 @@ export default class extends React.Component<Props, State> {
     }
 
     componentDidMount() {
+        fetch('/api/words').then(res => res.json()).then(val => this.setState({ words: val.data, gameState: GAME_STATE.Menu }));
         document.body.addEventListener('keypress', this.keyListener.bind(this));
         this.updateGame();
     }

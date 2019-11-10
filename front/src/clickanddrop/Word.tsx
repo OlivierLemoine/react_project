@@ -2,6 +2,7 @@ import React from 'react';
 import Article from './article'
 import { Word } from "../Word";
 import Timer from './Timer';
+import './Word.css';
 
 
 function random_item<T>(items: T[]) {
@@ -76,18 +77,52 @@ export default class extends React.Component<Props, State> {
         return (
             <div>
                 <div>
-                    <Timer sec={10} isRunning={false} onEnd={() => { console.log('fini') }} />
+                    <div className="timer center-align">
+                        <Timer sec={10} isRunning={this.state.gameState === GameState.Running} onEnd={() => this.setState({ gameState: GameState.Ending })} />
+                    </div>
                     <h1 className='center-align'>{this.state.score}</h1>
                     <div className="card-panel teal lighten-2 center-align">
                         {
-                            this.state.currWord ? this.state.currWord.name : ""
+                            this.state.currWord && this.state.gameState === GameState.Running ? this.state.currWord.name : "."
                         }
                     </div>
 
+
                     <div className='center-align'>
-                        <div className='row'><Article article={MascArt} onClick={(art: string) => this.verifArticle(art)} /></div>
-                        <div className='row'><Article article={FemArt} onClick={(art: string) => this.verifArticle(art)} /></div>
-                        <div className='row'><Article article={NeutrArt} onClick={(art: string) => this.verifArticle(art)} /></div>
+                        {
+                            (() => {
+                                switch (this.state.gameState) {
+                                    case GameState.Waiting:
+                                        return (
+                                            <button className="btn row" onClick={() => this.setState({ gameState: GameState.Running })}>Start</button>
+                                        );
+                                    case GameState.Running:
+                                        return (
+                                            <div>
+                                                <div className='row'>
+                                                    <Article article={MascArt} onClick={(art: string) => this.verifArticle(art)} />
+                                                </div>
+                                                <div className='row'>
+                                                    <Article article={FemArt} onClick={(art: string) => this.verifArticle(art)} />
+                                                </div>
+                                                <div className='row'>
+                                                    <Article article={NeutrArt} onClick={(art: string) => this.verifArticle(art)} />
+                                                </div>
+                                            </div>
+                                        );
+                                    case GameState.Ending:
+                                        return (
+                                            <button className="btn row" onClick={() => this.setState({ gameState: GameState.Waiting, score: 0 })}>Restart</button>
+                                        );
+                                    default:
+                                        return (
+                                            <div>
+                                                Error
+                                            </div>
+                                        );
+                                }
+                            })()
+                        }
 
                     </div>
 
@@ -98,8 +133,3 @@ export default class extends React.Component<Props, State> {
 
     }
 }
-//{this.state.List()}
-
-//  <Fetch onLoaded={(a,b) => console.log(b)}/>
-
-//<button onClick={this.GetWords()} value="Click me" />

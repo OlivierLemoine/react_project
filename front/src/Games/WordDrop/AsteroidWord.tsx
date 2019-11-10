@@ -1,18 +1,39 @@
 import React from 'react';
 import './AsteroidWord.css';
+import { Word } from "../../Word";
+import { Position } from "./Asteroid";
 
-export default class extends React.Component {
-    constructor(props) {
+type Props = {
+    word: Word,
+    movement: {
+        speed: number,
+        isMoving: boolean,
+        bottom: number,
+        position: Position,
+    }
+    atBottom: () => void
+}
+
+type State = {
+    rotationSpeed: string,
+    sens: boolean,
+    position: number,
+}
+
+export default class extends React.Component<Props, State> {
+    state: State = {
+        rotationSpeed: (() => `${Math.floor(Math.random() * 30 + 10) / 10}s`)(),
+        sens: Math.floor(Math.random() * 2) === 1,
+        position: -100,
+    }
+
+    speed: number
+    isRuning = true
+
+    constructor(props: Props) {
         super(props);
 
-        this.state = {
-            rotationSpeed: (() => `${Math.floor(Math.random() * 30 + 10) / 10}s`)(),
-            sens: Math.floor(Math.random() * 2) === 1,
-            position: -150,
-        };
-
         this.speed = props.movement.speed / 100;
-        this.isRuning = true;
     }
 
     componentDidMount() {
@@ -25,19 +46,20 @@ export default class extends React.Component {
 
 
     moveSelf() {
-        if (this.props.movement.isMoving) {
+        if (this.isRuning) {
+            if (this.props.movement.isMoving) {
 
-            if (this.state.position > this.props.movement.bottom) {
-                this.props.atBottom();
-                this.isRuning = false;
+                if (this.state.position > this.props.movement.bottom) {
+                    this.props.atBottom();
+                    this.isRuning = false;
+                }
+
+                this.setState({ position: this.state.position + this.speed });
+
             }
 
-            this.setState({ position: this.state.position + this.speed });
-
-        }
-
-        if (this.isRuning)
             window.requestAnimationFrame(this.moveSelf.bind(this))
+        }
     }
 
     render() {
@@ -47,9 +69,9 @@ export default class extends React.Component {
                 transform: "translateX(-50%)",
                 left: (() => {
                     switch (this.props.movement.position) {
-                        case "left":
+                        case Position.Left:
                             return "20%";
-                        case "right":
+                        case Position.Right:
                             return "80%";
                         default:
                             return "50%";

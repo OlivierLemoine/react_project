@@ -1,32 +1,53 @@
 import React from 'react';
 import './WordDrop.css';
 import Asteroid from './AsteroidWord';
+import { Word } from "../../Word";
+import { positionFromNumber, Asteroid as AsteroidInterface } from './Asteroid';
 
-const GAME_STATE = {
-    Menu: 'Menu',
-    Playing: 'Playing',
-    GameOver: 'GameOver',
-};
+enum GAME_STATE {
+    Loading,
+    Menu,
+    Playing,
+    GameOver,
+}
 
-export default class extends React.Component {
-    constructor(props) {
-        super(props);
+function INIT_GAME_STATE() {
+    return {
+        asteroids: [],
+        points: 0,
+        difficulty: 1,
+    }
+}
 
-        this.state = {
-            gameState: GAME_STATE.Menu,
-            game: {
-                asteroids: [],
-                point: 0,
-                difficulty: 1,
-            }
-        };
+type Props = {}
 
-        this.isRunning = true;
+type State = {
+    gameState: GAME_STATE
+    game: {
+        asteroids: AsteroidInterface[],
+        points: number,
+        difficulty: number,
+    }
+    words: Word[]
+}
 
-        this.id = 0;
+export default class extends React.Component<Props, State> {
+    state: State = {
+        gameState: GAME_STATE.Loading,
+        game: INIT_GAME_STATE(),
+        words: []
     }
 
-    keyListener(e) {
+    isRunning = false
+    id = 0
+
+    constructor(props: Props) {
+        super(props);
+
+        fetch('/api/words').then(res => res.json()).then(val => this.setState({ words: val.data, gameState: GAME_STATE.Menu }));
+    }
+
+    keyListener(e: KeyboardEvent) {
         let det = (() => {
             switch (e.key) {
                 case '1':
@@ -72,36 +93,33 @@ export default class extends React.Component {
     }
 
     updateGame() {
-        this.setState(state => {
-            state.game.asteroids.push(this.generateAsteroid(state.game.difficulty));
-            return state;
-        });
+        if (this.isRunning) {
+            this.setState(state => {
+                state.game.asteroids.push(this.generateAsteroid(state.game.difficulty));
+                return state;
+            });
 
-        if (this.isRunning)
-            setTimeout(this.updateGame.bind(this), 2000 / (0.1 * this.state.game.difficulty));
+
+            setTimeout(this.updateGame.bind(this), 5000 / (1 + 0.1 * this.state.game.difficulty));
+        }
     }
 
-    generateAsteroid(difficulty) {
+    generateAsteroid(difficulty: number): AsteroidInterface {
         return {
             id: this.id++,
-            word: this.props.words[Math.floor(Math.random() * this.props.words.length)],
-            speed: difficulty * 5 + 20,
-            position: (() => {
-                switch (Math.floor(Math.random() * 3)) {
-                    case 0:
-                        return "left";
-                    case 1:
-                        return "right";
-                    default:
-                        return "middle";
-                }
-            })()
+            word: this.state.words[Math.floor(Math.random() * this.state.words.length)],
+            speed: difficulty * 5 + 70,
+            position: positionFromNumber(Math.floor(Math.random() * 3)),
         }
     }
 
     renderMenu() {
         return (
-            <div className="moon-title" onClick={() => this.setState({ gameState: GAME_STATE.Playing })}>
+            <div className="moon-title" onClick={() => {
+                this.isRunning = true;
+                this.updateGame();
+                this.setState({ game: INIT_GAME_STATE(), gameState: GAME_STATE.Playing });
+            }}>
                 <img src="moon_title.png" alt="moon title" />
             </div>
         );
@@ -128,7 +146,7 @@ export default class extends React.Component {
 
     renderGameOver() {
         return (
-            <div>
+            <div className="game-over-btn">
                 <button className="btn" onClick={() => this.setState({ gameState: GAME_STATE.Menu })}>
                     Restart
                 </button>
@@ -136,9 +154,19 @@ export default class extends React.Component {
         );
     }
 
+    renderLoading() {
+        return (
+            <div>
+                Loading...
+            </div>
+        );
+    }
+
     render() {
         let game = (() => {
             switch (this.state.gameState) {
+                case GAME_STATE.Loading:
+                    return this.renderLoading();
                 case GAME_STATE.Menu:
                     return this.renderMenu();
                 case GAME_STATE.Playing:

@@ -1,24 +1,24 @@
 .moon-title{
-    height: 100%;
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
     cursor: pointer;
 }
 
 .moon-title > img{
-    position: absolute;
-    top: 50%;
-    left: 50%;
     animation: moonTitleImageMove 0.65s ease-in-out infinite;
 }
 
 @keyframes moonTitleImageMove{
-    0% {transform: translate(-50%, -50%)scale(1);}
-    50% {transform: translate(-50%, -50%)scale(1.2);}
-    100% {transform: translate(-50%, -50%)scale(1);}
+    0% {transform: scale(1);}
+    50% {transform: scale(1.2);}
+    100% {transform: scale(1);}
 }
 
 .game-container{
+    position: relative;
     background-image: url("./stars.png");
     background-size: 500px;
     background-repeat: 10 10;
@@ -35,10 +35,18 @@
     position: absolute;
     width: 60%;
     left: 20%;
+    top: 80%;
     animation: imgRotate 20s infinite linear;
 }
 
 @keyframes imgRotate {
-    from {transform: translateY(80vh) rotate(0deg);}
-    to {transform: translateY(80vh) rotate(360deg);}
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+.game-over-btn{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

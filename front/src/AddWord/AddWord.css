@@ -1,0 +1,26 @@
+.add-word{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(31, 31, 31);
+}
+
+.card-panel{
+    background-color: rgb(60, 60, 60);
+}
+
+.word-name{
+    color: white;
+}
+
+.modal{
+    background-color: rgb(40, 40, 40);
+    color: white;
+}
+
+.modal-footer{
+    background-color: rgb(50, 50, 50) !important;
+}
+
+.modal-footer > a {
+    color: rgb(230, 230, 230);
+}

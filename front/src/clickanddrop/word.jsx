@@ -1,6 +1,5 @@
 import React from 'react';
-import Article from './article'
-import Chrono from "./Chrono";
+import Article from './article';
 
 
 function random_item(items) {
@@ -64,7 +63,6 @@ export default class Word extends React.Component {
                 {this.state.ListName.length > 0 &&
                     this.GetRandName(this.state.ListName)}
                 <div>
-                    <Chrono sec={10} onEnd={() => { console.log("end") }} />
                     <Article article={MascArt} onClick={(art) => this.verifArticle(art)} />
                     <Article article={FemArt} onClick={(art) => this.verifArticle(art)} />
                     <Article article={NeutrArt} onClick={(art) => this.verifArticle(art)} />

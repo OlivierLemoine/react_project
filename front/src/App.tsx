@@ -1,10 +1,13 @@
 import React from 'react';
 import './App.css';
+
+import About from "./About";
+import Menu from "./Menu/Menu";
 import AddWord from './HandleWord/AddWord';
+import ShowWords from "./HandleWord/ShowWords";
 import DropWord from './Games/WordDrop/WordDrop';
 import ClickNDrop from "./Games/ClickAndDrop/Word";
-import ShowWords from "./HandleWord/ShowWords";
-import Menu from "./Menu/Menu";
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -30,10 +33,7 @@ export default class extends React.Component {
                             <ShowWords />
                         </Route>
                         <Route path="/">
-                            <img src="wip.jpg" alt="WIP" style={{
-                                maxHeight: "100%",
-                                maxWidth: "100%",
-                            }} />
+                            <About />
                         </Route>
                     </Switch>
                     <Menu />

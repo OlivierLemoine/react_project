@@ -1,0 +1,39 @@
+.about-scene{
+    height: 100%;
+    background-color: rgb(31, 31, 31);
+    perspective: 600px;
+    position: relative;
+}
+
+.cube {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    transform-style: preserve-3d;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateX(45deg) rotateY(45deg) rotateZ(0deg);
+    /* animation: cube-rotation linear 6s infinite; */
+}
+
+  
+.cube-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: white solid 1px;
+}
+
+.cube-face--front  { transform: rotateY(  0deg) translateZ(100px)}
+.cube-face--right  { transform: rotateY( 90deg) translateZ(100px); }
+.cube-face--back   { transform: rotateY(180deg) translateZ(100px); }
+.cube-face--left   { transform: rotateY(-90deg) translateZ(100px); }
+.cube-face--top    { transform: rotateX( 90deg) translateZ(100px); }
+.cube-face--bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+@keyframes cube-rotation{
+    0% { transform: translate(-50%, -50%) rotateX(45deg) rotateY(45deg) rotateZ(0deg); }
+    25% { transform: translate(-50%, -50%) rotateX(45deg) rotateY(-45deg) rotateZ(90deg); }
+    50%  { transform: translate(-50%, -50%) rotateX(45deg) rotateY(-45deg) rotateZ(90deg); }
+    100% { transform: translate(-50%, -50%) rotateX(45deg) rotateY(-45deg) rotateZ(90deg); }
+}

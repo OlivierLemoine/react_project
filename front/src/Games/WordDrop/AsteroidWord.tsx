@@ -27,14 +27,7 @@ export default class extends React.Component<Props, State> {
         position: -100,
     }
 
-    speed: number
     isRuning = true
-
-    constructor(props: Props) {
-        super(props);
-
-        this.speed = props.movement.speed / 100;
-    }
 
     componentDidMount() {
         this.moveSelf();
@@ -54,7 +47,7 @@ export default class extends React.Component<Props, State> {
                     this.isRuning = false;
                 }
 
-                this.setState({ position: this.state.position + this.speed });
+                this.setState({ position: this.state.position + this.props.movement.speed / 100 });
 
             }
 

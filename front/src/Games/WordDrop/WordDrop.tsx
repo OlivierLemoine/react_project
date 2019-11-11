@@ -64,7 +64,7 @@ export default class extends React.Component<Props, State> {
                 });
             } else {
                 this.setState(state => {
-                    state.game.asteroids[0].speed *= 2;
+                    state.game.asteroids[0].speed *= 10;
                     return state;
                 })
             }

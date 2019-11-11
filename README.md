@@ -11,7 +11,7 @@ Users are able to add new words in a collaborative DB. With some minigames, they
 
 ## What games?
 
-* Drag and drop article on top of a word.
+* Choose the right article for a list of words. Be carefull, you don't have much time !
 * Defend a planet from attacking 
 
 ## Optional

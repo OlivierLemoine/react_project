@@ -20,15 +20,15 @@
 .game-container{
     position: relative;
     background-image: url("./stars.png");
-    background-size: 500px;
-    background-repeat: 10 10;
+    background-size: 100% auto;
+    background-repeat: round;
     height: 100vh;
-    animation: backgroundMove 1000000s infinite linear;
+    animation: backgroundMove 10s infinite linear;
 }
 
 @keyframes backgroundMove{
     from {background-position: 0 0;}
-    to {background-position: 0 10000000000px;}
+    to {background-position: 0 100%;}
 }
 
 .big-moon-img{

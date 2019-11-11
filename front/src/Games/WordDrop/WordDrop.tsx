@@ -156,29 +156,29 @@ export default class extends React.Component<Props, State> {
     }
 
     render() {
-        let game = (() => {
-            switch (this.state.gameState) {
-                case GAME_STATE.Loading:
-                    return this.renderLoading();
-                case GAME_STATE.Menu:
-                    return this.renderMenu();
-                case GAME_STATE.Playing:
-                    return this.renderGame();
-                case GAME_STATE.GameOver:
-                    return this.renderGameOver();
-                default:
-                    return (
-                        <div style={{ backgroundColor: "white", padding: "30px" }}>
-                            Error, please reload.
-                            <button onClick={() => { window.location.reload(); }} className="btn">Reload</button>
-                        </div >
-                    );
-            };
-        })();
-
         return (
             <div className="game-container">
-                {game}
+                {
+                    (() => {
+                        switch (this.state.gameState) {
+                            case GAME_STATE.Loading:
+                                return this.renderLoading();
+                            case GAME_STATE.Menu:
+                                return this.renderMenu();
+                            case GAME_STATE.Playing:
+                                return this.renderGame();
+                            case GAME_STATE.GameOver:
+                                return this.renderGameOver();
+                            default:
+                                return (
+                                    <div style={{ backgroundColor: "white", padding: "30px" }}>
+                                        Error, please reload.
+                                        <button onClick={() => { window.location.reload(); }} className="btn">Reload</button>
+                                    </div >
+                                );
+                        };
+                    })()
+                }
             </div>
         );
     }
